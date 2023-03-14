@@ -7,7 +7,7 @@
 
         <title>StockPiForce</title>
 
-        <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
+        <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
