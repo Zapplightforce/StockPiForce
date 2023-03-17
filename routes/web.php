@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/news/fetch-article-content/{url}', [UserController::class, 'fetchArticleContent']);
 
 require __DIR__.'/auth.php';
 require __DIR__ . '/user.php';

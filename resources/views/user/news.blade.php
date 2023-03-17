@@ -11,7 +11,7 @@
 
                 @foreach($articles as $article)
 
-                    <a id="link" href="{{$article->url}}" class="article-link bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg max-w-sm mb-3">
+                    <a id="link" href="/news/fetch-article-content/{{urlencode($article->url)}}" class="article-link bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg max-w-sm mb-3">
                         <div class="p-6">
                             <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
                                 {{$article->title}}</h5>
@@ -24,47 +24,43 @@
 
             <div class="flex mx-3 max-w-screen">
                 <div class="bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg max-h-[650px]">
-                    <iframe id="target-iframe" class="max-h-screen w-[1100px]"></iframe>
+                    <div id="content-container" class="bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg max-h-[650px]">
+                        <!-- The fetched content will be displayed here -->
+                    </div>
                 </div>
             </div>
     </div>
     </div>
 
-    <script>
+    {{--<script>
         document.querySelectorAll('.article-link').forEach(link => {
-            link.addEventListener('click', function(event) {
+            link.addEventListener('click', async function(event) {
                 event.preventDefault();
-                const iframe = document.getElementById('target-iframe');
                 const url = event.currentTarget.href;
+                const encodedUrl = encodeURIComponent(url);
+                const contentUrl = `/news/fetch-article-content/${encodedUrl}`;
+                console.log('Fetching content from:', contentUrl);
+                try {
+                    const response = await fetch(contentUrl);
+                    const responseText = await response.text();
+                    console.log('Response status:', response.status);
+                    console.log('Raw response text:', responseText); // Log the raw response text
 
-                iframe.src = url;
+                    const data = JSON.parse(responseText);
 
-                iframe.addEventListener('load', function() {
-                    const style = window.getComputedStyle(document.body);
-                    const isDarkMode = style.backgroundColor === 'rgb(34, 34, 34)';
-
-                    if (isDarkMode) {
-                        // Custom Dark Mode styles for the iframe
-                        const darkModeStyles = `
-                    body {
-                        background-color: #222;
-                        color: #fff;
+                    if (data.error) {
+                        console.error('Error fetching content:', data.error);
+                    } else {
+                        const content = data.content;
+                        // Display the content in a container on your page
+                        document.getElementById('content-container').innerHTML = content;
                     }
-                `;
-
-                        const darkModeStyleElement = document.createElement('style');
-                        darkModeStyleElement.innerHTML = darkModeStyles;
-                        iframe.contentWindow.document.head.appendChild(darkModeStyleElement);
-                    }
-
-                    // Custom ad-blocker event
-                    /*iframe.contentWindow.document.addEventListener('ad-blocker', function() {
-                        console.log('Ad-blocker event triggered');
-                        // Implement custom ad-blocking logic here
-                    });*/
-                });
+                } catch (error) {
+                    console.error('Error fetching content:', error);
+                }
             });
         });
-    </script>
+    </script>--}}
+
 
 </x-app-layout>
