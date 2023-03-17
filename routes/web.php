@@ -19,7 +19,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/news/fetch-article-content/{url}', [UserController::class, 'fetchArticleContent']);
-
 require __DIR__.'/auth.php';
 require __DIR__ . '/user.php';

@@ -6,12 +6,12 @@
     </x-slot>
 
     <div class="py-8">
-        <div class="flex max-h-[calc(100vh-13rem)] mx-3 overflow-y-auto">
-            <div class="flex flex-col w-1/3 h-800px overflow-y-scroll">
+        <div class="grid grid-cols-3 max-h-[calc(100vh-13rem)] mx-3 overflow-y-auto">
+            <div class="col-span-1 h-800px overflow-y-scroll">
 
                 @foreach($articles as $article)
 
-                    <a id="link" href="/news/fetch-article-content/{{urlencode($article->url)}}" class="article-link bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg max-w-sm mb-3">
+                    <a id="link" href="{{$article->url}}" class="article-link bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg max-w-sm mb-3">
                         <div class="p-6">
                             <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
                                 {{$article->title}}</h5>
@@ -22,45 +22,50 @@
                 @endforeach
         </div>
 
-            <div class="flex mx-3 max-w-screen">
-                <div class="bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg max-h-[650px]">
-                    <div id="content-container" class="bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg max-h-[650px]">
-                        <!-- The fetched content will be displayed here -->
-                    </div>
+            <div class="col-span-2 mx-3">
+                <div id="content-container" class="bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg max-h-[650px] fixed-size-container w-full">
+                    <!-- The fetched content will be displayed here -->
                 </div>
             </div>
     </div>
     </div>
 
-    {{--<script>
+    <script>
+        function extractText(html) {
+            const div = document.createElement('div');
+            div.innerHTML = html;
+            const images = div.getElementsByTagName('img');
+            while (images.length) {
+                images[0].parentNode.removeChild(images[0]);
+            }
+            return div.innerText;
+        }
+
         document.querySelectorAll('.article-link').forEach(link => {
             link.addEventListener('click', async function(event) {
                 event.preventDefault();
                 const url = event.currentTarget.href;
                 const encodedUrl = encodeURIComponent(url);
-                const contentUrl = `/news/fetch-article-content/${encodedUrl}`;
-                console.log('Fetching content from:', contentUrl);
-                try {
-                    const response = await fetch(contentUrl);
-                    const responseText = await response.text();
-                    console.log('Response status:', response.status);
-                    console.log('Raw response text:', responseText); // Log the raw response text
+                const fetchUrl = `/news/fetch-article-content?url=${encodedUrl}`;
 
-                    const data = JSON.parse(responseText);
-
-                    if (data.error) {
-                        console.error('Error fetching content:', data.error);
-                    } else {
-                        const content = data.content;
-                        // Display the content in a container on your page
-                        document.getElementById('content-container').innerHTML = content;
-                    }
-                } catch (error) {
-                    console.error('Error fetching content:', error);
-                }
+                fetch(fetchUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            console.error('Error fetching content:', data.error);
+                        } else {
+                            const content = data.content;
+                            // Display the content in a container on your page
+                            document.getElementById('content-container').innerHTML = content;
+                        }
+                    });
             });
         });
-    </script>--}}
+
+        // Automatically load the first article
+        document.querySelector('.article-link').click();
+    </script>
+
 
 
 </x-app-layout>
