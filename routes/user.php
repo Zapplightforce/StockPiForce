@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\User\NewsController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,4 +18,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
     Route::get('/news', [UserController::class, 'news'])->name('news');
     Route::get('/news/fetch-article-content', [UserController::class, 'fetchArticleContent']);
+    Route::get('/news/fetch-image-url', [NewsController::class, 'fetchImageURL']);
 });
