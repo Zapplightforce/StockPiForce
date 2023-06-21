@@ -23,6 +23,7 @@
             <div class="col-span-3 mx-3">
                 <div id="content-container" class="bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg h-[calc(100vh-13rem)] fixed-size-container w-full overflow-y-scroll py-5">
                         <div class="flex justify-between px-4 mx-auto max-w-screen-xl ">
+                            <div id="spinner" class="loader"></div>
                             <article class="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
                                 <header class="mb-4 lg:mb-6 not-format">
                                     <address class="flex items-center mb-6 not-italic">
@@ -121,22 +122,33 @@
         document.querySelectorAll('.article-link').forEach(link => {
             link.addEventListener('click', async function(event) {
                 event.preventDefault();
-                const title = event.currentTarget.querySelector('h5').textContent;
+
+                // Show spinner
+                const spinnerElement = document.getElementById('spinner');
+                spinnerElement.style.display = 'block';
+
+                let title = event.currentTarget.querySelector('h5').textContent;
+                title = title.trim();
                 const fetchUrl = `/news/fetch-article-content?title=${encodeURIComponent(title)}`;
-                console.log(fetchUrl);
 
                 const response = await fetch(fetchUrl);
 
                 if (response.ok) {
                     const data = await response.json();
-                    console.log(data);
+
+                    // Hide spinner before displaying the article
+                    spinnerElement.style.display = 'none';
+
                     displayArticle(data);
                 } else {
                     console.log('Error fetching article content');
-                }
 
+                    // Hide spinner in case of an error
+                    spinnerElement.style.display = 'none';
+                }
             });
         });
+
 
         // Automatically load the first article
         document.querySelector('.article-link').click();
