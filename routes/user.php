@@ -4,7 +4,6 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\NewsController;
 use App\Http\Controllers\User\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
