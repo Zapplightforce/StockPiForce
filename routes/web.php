@@ -19,5 +19,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/500', function () {
+    return view('errors.500');
+});
+
+Route::get('/404', function () {
+    return view('errors.404');
+});
+
 require __DIR__.'/auth.php';
 require __DIR__ . '/user.php';
