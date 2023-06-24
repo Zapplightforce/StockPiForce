@@ -64,3 +64,14 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+## Hacktivist
+
+To prevent IDOR attacks I used laravels ORM for example if the user wants to see information about his profile it only displays information
+about the currently logged-in user. This can be check in the ProfileController.php file. 
+
+To prevent snooping laravel uses the HTTPS protocol to encrypt the data that is being sent between the client and the server.
+
+To prevent session hijacking laravel uses a session token that is stored in the session cookie. This token is regenerated every time the user logs in. It can be checked in the AuthenticatedSessionController.php file.
+
