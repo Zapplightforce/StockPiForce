@@ -66,7 +66,7 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 
-## Hacktivist
+# Hacktivist
 
 To prevent IDOR attacks I used laravels ORM for example if the user wants to see information about his profile it only displays information
 about the currently logged-in user. This can be check in the ProfileController.php file. 
@@ -74,4 +74,31 @@ about the currently logged-in user. This can be check in the ProfileController.p
 To prevent snooping laravel uses the HTTPS protocol to encrypt the data that is being sent between the client and the server.
 
 To prevent session hijacking laravel uses a session token that is stored in the session cookie. This token is regenerated every time the user logs in. It can be checked in the AuthenticatedSessionController.php file.
+
+# Testing
+
+The two user stories i tested are:
+
+### User Story 1
+
+As a registered user, I want to be able to log in and view the dashboard.
+
+### User Story 2
+
+As a registered user, I want to be able to edit my profile.
+
+## Test Plan
+
+### User Story 1
+
+**System Test**: Tests that the user can suscessfully log in and view the dashboard.
+
+**Unit Test**: Tests that the login function successfully authenticates the use r.
+
+### User Story 2
+
+**System Test**: Tests that the user can successfully navigate to the edit profile page and edit their profile.
+
+**Unit Test**: Tests that the update function successfully updates the users profile.
+
 
