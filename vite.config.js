@@ -11,4 +11,10 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    server: {
+        watch: {
+            // During development, we don't want Vite to reload the page when tests change
+            ignored: '**/node_modules/**',
+        },
+    },
 });
