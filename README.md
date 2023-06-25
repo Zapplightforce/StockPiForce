@@ -68,8 +68,8 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 # Hacktivist
 
-To prevent IDOR attacks I used laravels ORM for example if the user wants to see information about his profile it only displays information
-about the currently logged-in user. This can be check in the ProfileController.php file. 
+To prevent IDOR attacks I used Laravels ORM for example if the user wants to see information about his profile it only displays information
+about the currently logged-in user. This can be checked in the ProfileController.php file. 
 
 To prevent snooping laravel uses the HTTPS protocol to encrypt the data that is being sent between the client and the server.
 
@@ -77,13 +77,13 @@ To prevent session hijacking laravel uses a session token that is stored in the 
 
 # Testing
 
-The two user stories i tested are:
+The two user stories I tested are:
 
 ### User Story 1
 
 As a registered user, I want to be able to log in and view the dashboard.
 
-**Acceptance Criteria:** When i enter my correct login credentials and click on the login button,
+**Acceptance Criteria:** When I enter my correct login credentials and click on the login button,
 I should be redirected to the dashboard page.
 
 **Unhappy Path:** When I enter incorrect login credentials and click on the login button,
@@ -107,45 +107,45 @@ The wire flows are in a separate folder named wire flows.
 
 ### User Story 1
 
-**System Test (Happy Path):** Tests that the user can suscessfully log in and view the dashboard.
+**System Test (Happy Path):** Tests that the user can successfully log in and view the dashboard.
 
 **System Test (Unhappy Path):** Tests that the user cannot log in with incorrect credentials and displays
 an error message.
 
-**Unit Test**: Tests that the login function successfully authenticates the use r.
+**Unit Test**: Tests that the login function successfully authenticates the user.
 
 ### User Story 2
 
 **System Test (Happy Path):** Tests that the user can successfully navigate to the edit profile page, edit their profile
-and the changes are saved and can be displayed once the user revisits.
+and the changes are saved and can be displayed once the user revisits them.
 
 **System Test (Unhappy Path):** Tests that the user cannot save their edited profile without filling out the required fields.
 
-**Unit Test**: Tests that the update function successfully updates the users profile.
+**Unit Test**: Tests that the update function successfully updates the user's profile.
 
 ## Screenshots
 
-Screenshots are in a separate Word document named screenshots with their explanations.
+The screenshots are separate in the zip folder
 
 ## Evaluation
 
 1. **Possible mistake/error that can be detected by my tests:**
     
-The testscan detect if there's an issue with the user authentication, the 
-redirection after the login and if the profile updates. For example, if a
-user tries to log in with incorrect credentials, the test will fail.
+The tests can detect if there's an issue with the user authentication, the 
+redirection after the login, and if the profile updates. For example, the test will fail if a
+user tries to log in with incorrect credentials.
 
 2.**Possible mistake/error that cannot be detected by my tests:**
     
 The tests do not check for the actual content on those pages, they wouldn't detect issues
-        with the display of the dachboard or profile page. They also don't test for other possible
+        with the display of the dashboard or profile page. They also don't test for other possible
         functionalities on the page, like password reset, registration, or fetching news.
 
 3.**To what extent can I conclude that "everything works correctly"?:**
     
 these tests make sure that the basic functions of logging in, viewing the dashboard, and 
 editing the profile work correctly. However, they do not test for other functionalities
-        or the actual content on the pages. For example the tests do not check if the news
+        or the actual content on the pages. For example, the tests do not check if the news
         are fetched correctly or if the user can reset their password. They also don't check
 if the registration process works correctly. Meaning, while these tests are a good start, more
 comprehensive tests are needed to make sure that everything works correctly. Also, these tests need to
