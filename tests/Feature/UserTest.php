@@ -38,6 +38,26 @@ class UserTest extends TestCase
         $this->assertAuthenticatedAs($user);
     }
 
+    public function test_login_with_incorrect_credentials()
+    {
+        // Create a user
+        $user = User::factory()->create([
+            'password' => bcrypt('password'), // Hash the password
+        ]);
+
+        // Call the login function with incorrect password
+        $response = $this->post('/login', [
+            'email' => $user->email,
+            'password' => 'wrongpassword',
+        ]);
+
+        // Check if the response status is not successful (i.e., the login failed)
+        $response->assertStatus(302);
+
+        // Check if the session contains errors
+        $response->assertSessionHasErrors();
+    }
+
     public function test_update_profile()
     {
         // Create a user
@@ -54,5 +74,23 @@ class UserTest extends TestCase
         // Refresh user instance and check if the name has been updated
         $response->assertRedirect('/profile');
     }
+
+    public function test_update_profile_without_required_field()
+    {
+        // Create a user
+        $user = User::factory()->create();
+
+        // Login as the user
+        $this->actingAs($user);
+
+        // Attempt to update user profile without required field
+        $response = $this->patch('/profile', [
+            'name' => '',
+        ]);
+
+        // Check if the user sees the error message
+        $response->assertSessionHasErrors('name');
+    }
 }
+
 
