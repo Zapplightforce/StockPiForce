@@ -125,7 +125,7 @@ and the changes are saved and can be displayed once the user revisits them.
 
 ## Screenshots
 
-The screenshots are separate in the zip folder
+The screenshots are separate in the zip folder called testing results
 
 ## Evaluation
 
